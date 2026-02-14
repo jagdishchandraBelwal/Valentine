@@ -9,13 +9,13 @@
 
 <style>
 :root{
-  --g1:#ff9a9e;
-  --g2:#fecdd3;
+  --g1:#880e4f;
+  --g2:#f06292;
   --p1:#ff69b4;
   --p2:#ff1493;
-  --glass:rgba(255,255,255,0.14);
-  --stroke:rgba(255,255,255,0.18);
-  --shadow:rgba(0,0,0,0.35);
+  --glass:rgba(255,255,255,0.16);
+  --stroke:rgba(255,255,255,0.22);
+  --shadow:rgba(0,0,0,0.45);
 }
 
 *{margin:0;padding:0;box-sizing:border-box}
@@ -28,27 +28,27 @@ body{
   transition:background 1.6s ease;
 }
 
-/* --- Ambient background layers --- */
+/* --- Ambient background layers (darker) --- */
 .bg-overlay{
   position:fixed; inset:0;
   pointer-events:none;
   background:
-    radial-gradient(800px 500px at 10% 10%, rgba(255,20,147,0.28), transparent 60%),
-    radial-gradient(900px 600px at 90% 20%, rgba(255,105,180,0.22), transparent 60%),
-    radial-gradient(900px 700px at 40% 90%, rgba(255,255,255,0.10), transparent 70%);
+    radial-gradient(800px 500px at 10% 10%, rgba(255,20,147,0.35), transparent 60%),
+    radial-gradient(900px 600px at 90% 20%, rgba(255,105,180,0.28), transparent 60%),
+    radial-gradient(900px 700px at 40% 90%, rgba(255,255,255,0.12), transparent 70%);
   mix-blend-mode:screen;
   z-index:-2;
 }
 .bg-noise{
   position:fixed; inset:-20%;
   pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.20'/%3E%3C/svg%3E");
-  opacity:.14;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+  opacity:.18;
   z-index:-1;
   transform:rotate(8deg);
 }
 
-/* --- Floating hearts (refined) --- */
+/* --- Floating hearts --- */
 @keyframes fall{
   0%{transform:translateY(-120vh) rotate(0deg); opacity:0}
   10%{opacity:1}
@@ -59,70 +59,43 @@ body{
   top:-10vh;
   user-select:none;
   pointer-events:none;
-  filter:drop-shadow(0 12px 18px rgba(0,0,0,.25));
+  filter:drop-shadow(0 12px 18px rgba(0,0,0,.35));
   z-index:0;
 }
 
-/* --- Floating appreciation texts (up/down) --- */
+/* --- Floating love messages (clearer + more visible) --- */
 @keyframes driftUp{
-  0%{transform:translateY(15vh); opacity:0}
-  15%{opacity:.75}
+  0%{transform:translateY(20vh); opacity:0}
+  15%{opacity:.95}
   100%{transform:translateY(-120vh); opacity:0}
 }
 @keyframes driftDown{
   0%{transform:translateY(-30vh); opacity:0}
-  15%{opacity:.65}
+  15%{opacity:.92}
   100%{transform:translateY(130vh); opacity:0}
 }
 .floater{
   position:fixed;
   left:0;
   font-family:'Playfair Display',serif;
-  letter-spacing:.5px;
-  font-weight:700;
-  color:rgba(255,255,255,0.18);
-  text-shadow:0 0 35px rgba(255,20,147,0.18);
+  letter-spacing:.6px;
+  font-weight:800;
+  color:rgba(255,255,255,0.78);
+  text-shadow:
+    0 0 16px rgba(255,20,147,0.45),
+    0 10px 30px rgba(0,0,0,0.30);
   user-select:none;
   pointer-events:none;
   white-space:nowrap;
-  z-index:0;
-}
-
-/* --- Top controls (minimal) --- */
-.topbar{
-  position:fixed;
-  top:18px; left:50%;
-  transform:translateX(-50%);
-  z-index:50;
-  display:flex;
-  gap:10px;
-  padding:10px 14px;
+  z-index:1;
+  padding:8px 14px;
   border-radius:999px;
-  background:rgba(255,255,255,0.10);
-  border:1px solid rgba(255,255,255,0.16);
-  backdrop-filter:blur(16px);
-  box-shadow:0 10px 30px rgba(0,0,0,0.18);
-}
-.topbar button{
-  border:0;
-  padding:10px 16px;
-  border-radius:999px;
-  cursor:pointer;
-  color:#fff;
-  background:linear-gradient(135deg,var(--p1),var(--p2));
-  box-shadow:0 10px 25px rgba(255,20,147,0.24);
-  transition:transform .25s ease, filter .25s ease;
-}
-.topbar button:hover{transform:translateY(-2px) scale(1.04); filter:saturate(1.1)}
-.topbar .pill{
-  display:flex; align-items:center; gap:10px;
-  padding:10px 14px;
-  border-radius:999px;
-  background:rgba(0,0,0,0.12);
+  background:rgba(0,0,0,0.22);
   border:1px solid rgba(255,255,255,0.14);
+  backdrop-filter:blur(10px);
 }
 
-/* --- Music button (same idea as yours) --- */
+/* --- Music button --- */
 .music-btn{
   position:fixed;
   bottom:22px; right:22px;
@@ -139,7 +112,7 @@ body{
 }
 .music-btn:hover{transform:translateY(-2px) scale(1.05)}
 
-/* --- One-page vertical scrolling sections --- */
+/* --- One-page sections --- */
 main{position:relative; z-index:2}
 .section{
   min-height:100vh;
@@ -155,13 +128,9 @@ main{position:relative; z-index:2}
   gap:38px;
   align-items:center;
 }
-.section:nth-child(even) .wrap{
-  grid-template-columns: .95fr 1.05fr;
-}
+.section:nth-child(even) .wrap{grid-template-columns: .95fr 1.05fr}
 @media (max-width: 900px){
   .wrap{grid-template-columns:1fr; gap:22px}
-  .section:nth-child(even) .wrap{grid-template-columns:1fr}
-  .topbar{flex-wrap:wrap; justify-content:center}
 }
 
 /* --- Glass card --- */
@@ -171,11 +140,11 @@ main{position:relative; z-index:2}
   backdrop-filter:blur(18px);
   border-radius:26px;
   padding:34px;
-  box-shadow:0 20px 60px rgba(0,0,0,0.25);
+  box-shadow:0 20px 60px var(--shadow);
 }
 h1,h2{
   font-family:'Playfair Display',serif;
-  text-shadow:0 0 34px rgba(255,20,147,0.28);
+  text-shadow:0 0 34px rgba(255,20,147,0.35);
 }
 h1{font-size:clamp(2.8rem, 6vw, 5.2rem); line-height:1.05}
 h2{font-size:clamp(2rem, 4.2vw, 3.3rem); margin-bottom:10px}
@@ -186,7 +155,7 @@ h2{font-size:clamp(2rem, 4.2vw, 3.3rem); margin-bottom:10px}
 }
 .big-heart{
   font-size:clamp(4.2rem, 9vw, 8.6rem);
-  filter:drop-shadow(0 0 28px rgba(255,20,147,0.35));
+  filter:drop-shadow(0 0 28px rgba(255,20,147,0.45));
   animation:beat 2s infinite;
   margin:10px 0 16px;
 }
@@ -195,119 +164,162 @@ h2{font-size:clamp(2rem, 4.2vw, 3.3rem); margin-bottom:10px}
   50%{transform:scale(1.12)}
 }
 
-/* --- Media frames (images/videos) --- */
+/* Media frames */
 .media{
   position:relative;
   border-radius:28px;
   overflow:hidden;
   border:1px solid rgba(255,255,255,0.18);
-  box-shadow:0 22px 60px rgba(0,0,0,0.35);
+  box-shadow:0 22px 60px rgba(0,0,0,0.45);
   background:rgba(0,0,0,0.18);
   min-height:520px;
 }
-@media (max-width: 900px){
-  .media{min-height:420px}
-}
+@media (max-width: 900px){.media{min-height:420px}}
 .media::after{
   content:"";
   position:absolute; inset:0;
-  background:
-    radial-gradient(800px 500px at 30% 10%, rgba(255,255,255,0.12), transparent 60%),
-    linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.35));
+  background:radial-gradient(800px 500px at 30% 10%, rgba(255,255,255,0.12), transparent 60%),
+             linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.45));
   pointer-events:none;
 }
 
-/* Slides */
-.slide{
-  position:absolute; inset:0;
-  opacity:0;
-  transform:scale(1.03);
-  transition:opacity 1.2s cubic-bezier(.22,1,.36,1), transform 1.2s cubic-bezier(.22,1,.36,1);
-}
-.slide.active{
-  opacity:1;
-  transform:scale(1);
-}
-.slide img, .slide video{
-  width:100%; height:100%;
-  object-fit:cover;
-  display:block;
-}
+.slide{position:absolute; inset:0; opacity:0; transform:scale(1.03); transition:opacity 1.2s cubic-bezier(.22,1,.36,1), transform 1.2s cubic-bezier(.22,1,.36,1);}
+.slide.active{opacity:1; transform:scale(1);}
+.slide img, .slide video{width:100%; height:100%; object-fit:cover; display:block;}
 .slide video{background:#000}
 
-/* Badge */
-.badge{
-  position:absolute;
-  top:16px; left:16px;
-  z-index:5;
-  padding:10px 14px;
-  border-radius:999px;
-  font-weight:600;
-  background:rgba(0,0,0,0.20);
-  border:1px solid rgba(255,255,255,0.16);
-  backdrop-filter:blur(10px);
-}
-
-/* Progress dots */
-.dots{
-  position:absolute;
-  bottom:16px; left:50%;
-  transform:translateX(-50%);
-  display:flex; gap:8px;
-  z-index:6;
-}
-.dot{
-  width:8px; height:8px;
-  border-radius:999px;
-  background:rgba(255,255,255,0.35);
-  border:1px solid rgba(255,255,255,0.15);
-  transition:transform .25s ease, background .25s ease;
-}
+.badge{position:absolute; top:16px; left:16px; z-index:5; padding:10px 14px; border-radius:999px; font-weight:600; background:rgba(0,0,0,0.20); border:1px solid rgba(255,255,255,0.16); backdrop-filter:blur(10px);}
+.dots{position:absolute; bottom:16px; left:50%; transform:translateX(-50%); display:flex; gap:8px; z-index:6;}
+.dot{width:8px; height:8px; border-radius:999px; background:rgba(255,255,255,0.35); border:1px solid rgba(255,255,255,0.15); transition:all .25s ease;}
 .dot.active{background:#fff; transform:scale(1.35)}
 
-/* Love timer (kept) */
-.timer{
-  margin-top:18px;
-  display:inline-block;
-  padding:14px 18px;
-  border-radius:16px;
-  background:rgba(0,0,0,0.16);
-  border:1px solid rgba(255,255,255,0.14);
-  backdrop-filter:blur(12px);
-  font-weight:600;
-}
-
-/* Final gift section (like your previous) */
-.gift-btn{
-  margin-top:22px;
-  padding:15px 44px;
-  border:0;
-  border-radius:999px;
-  background:linear-gradient(135deg,#ff69b4,#ff1493);
-  color:#fff;
-  font-size:1.15rem;
-  cursor:pointer;
-  box-shadow:0 18px 42px rgba(255,20,147,0.28);
-  transition:transform .25s ease;
-}
+.timer{margin-top:18px; display:inline-block; padding:14px 18px; border-radius:16px; background:rgba(0,0,0,0.16); border:1px solid rgba(255,255,255,0.14); backdrop-filter:blur(12px); font-weight:600;}
+.gift-btn{margin-top:22px; padding:15px 44px; border:0; border-radius:999px; background:linear-gradient(135deg,#ff69b4,#ff1493); color:#fff; font-size:1.15rem; cursor:pointer; box-shadow:0 18px 42px rgba(255,20,147,0.28); transition:transform .25s ease;}
 .gift-btn:hover{transform:translateY(-2px) scale(1.04)}
 
-footer{
-  padding:30px 18px 60px;
+footer{padding:30px 18px 60px; text-align:center; opacity:.85; font-size:.95rem;}
+
+/* Reveal on scroll */
+.reveal{opacity:0; transform:translateY(26px); transition:all 1s cubic-bezier(.22,1,.36,1);}
+.reveal.on{opacity:1; transform:translateY(0);}
+
+/* ===== Surprise Overlay (proposal) ===== */
+.proposal{
+  position:fixed; inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+  padding:22px;
+}
+.proposal.on{display:flex;}
+.proposal .backdrop{
+  position:absolute; inset:0;
+  background:
+    radial-gradient(700px 500px at 25% 20%, rgba(255,105,180,0.25), transparent 60%),
+    radial-gradient(700px 500px at 70% 70%, rgba(255,20,147,0.22), transparent 65%),
+    rgba(0,0,0,0.72);
+  backdrop-filter:blur(10px);
+}
+.proposal .modal{
+  position:relative;
+  width:min(760px, 94vw);
+  border-radius:28px;
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.18);
+  box-shadow:0 28px 80px rgba(0,0,0,0.55);
+  overflow:hidden;
+}
+.proposal .modal::before{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(800px 520px at 50% 0%, rgba(255,255,255,0.10), transparent 60%),
+    linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.30));
+  pointer-events:none;
+}
+.proposal .content{
+  position:relative;
+  padding:38px 28px 28px;
   text-align:center;
-  opacity:.85;
-  font-size:.95rem;
+}
+.proposal h3{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem, 4vw, 3.2rem);
+  margin-bottom:12px;
+  text-shadow:0 0 30px rgba(255,20,147,0.45);
+}
+.proposal p{
+  opacity:.95;
+  font-size:1.08rem;
+  line-height:1.8;
+}
+.ring{
+  margin:18px auto 14px;
+  width:130px; height:130px;
+  border-radius:999px;
+  display:grid;
+  place-items:center;
+  background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), rgba(255,255,255,0.06));
+  border:1px solid rgba(255,255,255,0.18);
+  box-shadow:0 18px 60px rgba(255,20,147,0.25);
+  animation:ringPop 1.05s ease forwards;
+}
+@keyframes ringPop{
+  from{transform:scale(.7); opacity:0}
+  to{transform:scale(1); opacity:1}
+}
+.ring span{
+  font-size:64px;
+  filter:drop-shadow(0 0 24px rgba(255,20,147,0.35));
 }
 
-/* Smooth reveal on scroll */
-.reveal{
-  opacity:0;
-  transform:translateY(26px);
-  transition:opacity 1s cubic-bezier(.22,1,.36,1), transform 1s cubic-bezier(.22,1,.36,1);
+.proposal .btnRow{
+  margin-top:18px;
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
 }
-.reveal.on{
-  opacity:1;
-  transform:translateY(0);
+.pbtn{
+  border:0;
+  padding:13px 26px;
+  border-radius:999px;
+  cursor:pointer;
+  font-weight:700;
+  color:#fff;
+  background:linear-gradient(135deg,#ff69b4,#ff1493);
+  box-shadow:0 16px 40px rgba(255,20,147,0.25);
+  transition:transform .2s ease;
+}
+.pbtn:hover{transform:translateY(-2px) scale(1.03)}
+.pbtn.secondary{
+  background:rgba(0,0,0,0.25);
+  border:1px solid rgba(255,255,255,0.18);
+  box-shadow:none;
+}
+
+.proposal .miniMsg{
+  margin-top:16px;
+  font-family:'Playfair Display',serif;
+  font-weight:700;
+  color:rgba(255,255,255,0.95);
+  text-shadow:0 0 18px rgba(255,20,147,0.35);
+  min-height:28px;
+}
+
+/* Confetti hearts inside overlay */
+@keyframes confetti{
+  0%{transform:translateY(-10vh) rotate(0deg); opacity:0}
+  10%{opacity:1}
+  100%{transform:translateY(120vh) rotate(900deg); opacity:0}
+}
+.confetti-heart{
+  position:fixed;
+  top:-12vh;
+  z-index:10000;
+  pointer-events:none;
+  filter:drop-shadow(0 10px 18px rgba(0,0,0,0.35));
 }
 </style>
 </head>
@@ -317,29 +329,14 @@ footer{
 <div class="bg-overlay"></div>
 <div class="bg-noise"></div>
 
-<!-- Music (same filename as your code) -->
 <audio id="bgMusic" loop>
   <source src="romantic.mp3" type="audio/mp3">
 </audio>
 <button class="music-btn" id="musicBtn">🎵</button>
 
-<!-- Topbar controls -->
-<div class="topbar">
-  <button onclick="scrollToId('top')">Home</button>
-  <button onclick="scrollToId('moments')">Moments</button>
-  <button onclick="scrollToId('promises')">Promises</button>
-  <button onclick="scrollToId('future')">Future</button>
-  <button onclick="scrollToId('gift')">Surprise</button>
-  <div class="pill">
-    <span style="opacity:.9">Together:</span>
-    <span id="loveTimer" style="font-weight:700"></span>
-  </div>
-</div>
-
 <main id="top">
 
-  <!-- 1 -->
-  <section class="section">
+  <section class="section" id="home">
     <div class="wrap reveal">
       <div class="card">
         <h1>My Forever Love</h1>
@@ -355,29 +352,27 @@ footer{
 
       <div class="media" data-player="p1">
         <div class="badge">Chapter 1 • Our Smile</div>
-        <!-- 12–16 photos using your same names pattern -->
-        <div class="slide active"><img src="images/first-meeting.jpg.jpg" alt=""></div>
+        <div class="slide active"><img src="images/photo5.jpeg" alt=""></div>
         <div class="slide"><img src="images/holding-hands.jpg" alt=""></div>
         <div class="slide"><img src="images/rainy-day-cuddle.jpg" alt=""></div>
         <div class="slide"><img src="images/us-together.jpg.jpeg" alt=""></div>
-        <div class="slide"><img src="images/photo5.jpeg" alt=""></div>
+        <div class="slide"><img src="images/photo4.jpg" alt=""></div>
         <div class="slide"><img src="images/photo3.jpg" alt=""></div>
         <div class="dots"></div>
       </div>
     </div>
   </section>
 
-  <!-- 2 -->
   <section class="section" id="moments">
     <div class="wrap reveal">
       <div class="media" data-player="p2">
         <div class="badge">Chapter 2 • Memories</div>
-        <div class="slide active"><img src="photo7.jpg" alt=""></div>
-        <div class="slide"><img src="photo8.jpg" alt=""></div>
-        <div class="slide"><img src="photo9.jpg" alt=""></div>
-        <div class="slide"><img src="photo10.jpg" alt=""></div>
-        <div class="slide"><img src="photo11.jpg" alt=""></div>
-        <div class="slide"><img src="photo12.jpg" alt=""></div>
+        <div class="slide active"><img src="images/photo1.jpeg" alt=""></div>
+        <div class="slide"><img src="images/photo2.jpeg" alt=""></div>
+        <div class="slide"><img src="images/mountain-trip.jpeg" alt=""></div>
+        <div class="slide"><img src="images/us-together.jpg.jpeg" alt=""></div>
+        <div class="slide"><img src="images/home.jpeg" alt=""></div>
+        <div class="slide"><img src="images/home1.jpeg" alt=""></div>
         <div class="dots"></div>
       </div>
 
@@ -387,13 +382,12 @@ footer{
           From our first shy hello…<br>
           To late night laughs…<br>
           To silly fights and deeper love…<br><br>
-          Every memory with you is priceless — and I keep them like treasures.
+          Every memory with you is priceless.
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 3 -->
   <section class="section" id="promises">
     <div class="wrap reveal">
       <div class="card">
@@ -408,27 +402,22 @@ footer{
 
       <div class="media" data-player="p3">
         <div class="badge">Chapter 3 • Little Moments</div>
-        <div class="slide active"><img src="photo13.jpg" alt=""></div>
-        <div class="slide"><img src="photo14.jpg" alt=""></div>
-        <div class="slide"><img src="photo15.jpg" alt=""></div>
-        <div class="slide"><img src="photo16.jpg" alt=""></div>
+        <div class="slide active"><img src="images/p2.jpeg" alt=""></div>
+        <div class="slide"><img src="images/p1.jpeg" alt=""></div>
+        <div class="slide"><img src="images/p3.jpeg" alt=""></div>
+        <div class="slide"><img src="images/p4.jpeg" alt=""></div>
         <div class="dots"></div>
       </div>
     </div>
   </section>
 
-  <!-- 4 -->
   <section class="section" id="future">
     <div class="wrap reveal">
       <div class="media" data-player="v1">
         <div class="badge">Chapter 4 • Our Story in Motion</div>
-        <!-- 5–6 videos; keep provided name video.mp4 + add video2..video6 -->
-        <div class="slide active"><video src="images/video1.mp4" muted playsinline preload="metadata"></video></div>
-        <div class="slide"><video src="images/video2.mp4" muted playsinline preload="metadata"></video></div>
-        <div class="slide"><video src="video3.mp4" muted playsinline preload="metadata"></video></div>
-        <div class="slide"><video src="video4.mp4" muted playsinline preload="metadata"></video></div>
-        <div class="slide"><video src="video5.mp4" muted playsinline preload="metadata"></video></div>
-        <div class="slide"><video src="video6.mp4" muted playsinline preload="metadata"></video></div>
+        <div class="slide active">
+          <video src="images/video1.mp4" muted playsinline preload="metadata"></video>
+        </div>
         <div class="dots"></div>
       </div>
 
@@ -438,14 +427,13 @@ footer{
           Building a home together…<br>
           Traveling the world…<br>
           Growing old while holding hands…<br><br>
-          The best is yet to come — and I want it with you.
+          The best is yet to come — with you.
         </div>
         <div class="timer">Together for <span id="loveTimer2"></span></div>
       </div>
     </div>
   </section>
 
-  <!-- 5 Gift (LIKE YOUR PREVIOUS: same text + button + alert proposal) -->
   <section class="section" id="gift">
     <div class="wrap reveal">
       <div class="card">
@@ -460,11 +448,9 @@ footer{
 
       <div class="media" data-player="p4">
         <div class="badge">Final • You & Me</div>
-        <div class="slide active"><img src="photo1.jpg" alt=""></div>
-        <div class="slide"><img src="photo2.jpg" alt=""></div>
-        <div class="slide"><img src="photo3.jpg" alt=""></div>
-        <div class="slide"><img src="photo4.jpg" alt=""></div>
-        <div class="slide"><video src="video.mp4" muted playsinline preload="metadata"></video></div>
+        <div class="slide active">
+          <video src="images/ume.mp4" autoplay muted playsinline controls></video>
+        </div>
         <div class="dots"></div>
       </div>
     </div>
@@ -475,15 +461,30 @@ footer{
   </footer>
 </main>
 
-<script>
-/* ---------- Scroll to section (one-page vertical) ---------- */
-function scrollToId(id){
-  const el = (id === 'top') ? document.getElementById('top') : document.getElementById(id);
-  if(!el) return;
-  el.scrollIntoView({behavior:'smooth', block:'start'});
-}
+<!-- ===== Proposal Overlay ===== -->
+<div class="proposal" id="proposal">
+  <div class="backdrop"></div>
+  <div class="modal">
+    <div class="content">
+      <div class="ring"><span>💍</span></div>
+      <h3>Will you marry me? ❤️</h3>
+      <p>
+        You are my favorite person, my peace, my home.<br>
+        I want every tomorrow to be with you.
+      </p>
 
-/* ---------- Music (same as your idea) ---------- */
+      <div class="btnRow">
+        <button class="pbtn" id="yesBtn">YES! 💖</button>
+        <button class="pbtn secondary" id="closeBtn">Not now 🙈</button>
+      </div>
+
+      <div class="miniMsg" id="miniMsg"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* Music */
 const music = document.getElementById("bgMusic");
 const btn = document.getElementById("musicBtn");
 btn.onclick = () => {
@@ -491,13 +492,12 @@ btn.onclick = () => {
   else { music.pause(); btn.innerHTML = "🔇"; }
 };
 
-/* ---------- Love timer (same start date, improved output) ---------- */
+/* Love timer */
 const startDate = new Date("2022-02-14T00:00:00");
 function fmt(n){return String(n).padStart(2,'0')}
 function updateTimer(){
   const now = new Date();
   let diff = now - startDate;
-
   const days = Math.floor(diff / (1000*60*60*24));
   diff -= days * (1000*60*60*24);
   const hrs = Math.floor(diff / (1000*60*60));
@@ -505,23 +505,14 @@ function updateTimer(){
   const mins = Math.floor(diff / (1000*60));
   diff -= mins * (1000*60);
   const secs = Math.floor(diff / 1000);
-
   const text = `${days} days • ${fmt(hrs)}:${fmt(mins)}:${fmt(secs)} 💕`;
-  const t1 = document.getElementById("loveTimer");
   const t2 = document.getElementById("loveTimer2");
-  if(t1) t1.textContent = text;
   if(t2) t2.textContent = text;
 }
 setInterval(updateTimer, 1000);
 updateTimer();
 
-/* ---------- Proposal mode (kept like your previous) ---------- */
-function proposalMode(){
-  document.body.style.background = "linear-gradient(135deg,#ff1493,#8b0000)";
-  alert("Will you stay with me forever? 💍❤️");
-}
-
-/* ---------- Falling Hearts (cleaner) ---------- */
+/* Falling hearts */
 const heartIcons = ["❤️","💖","💕","💗","💘"];
 function createHeart(){
   const heart = document.createElement("div");
@@ -530,13 +521,13 @@ function createHeart(){
   heart.style.left = Math.random()*100 + "vw";
   heart.style.fontSize = (Math.random()*1.8 + 1.2) + "rem";
   heart.style.animation = `fall ${Math.random()*7 + 10}s linear forwards`;
-  heart.style.opacity = "0.9";
+  heart.style.opacity = "0.95";
   document.body.appendChild(heart);
   setTimeout(()=>heart.remove(), 18000);
 }
 setInterval(createHeart, 900);
 
-/* ---------- Floating appreciation background texts (up & down) ---------- */
+/* Floating different love messages (CLEAR + VISIBLE) */
 const loveLines = [
   "You are my home ❤️",
   "My heart chooses you 💖",
@@ -547,7 +538,12 @@ const loveLines = [
   "Forever feels easy with you 💞",
   "You are my peace 🌙",
   "My favorite person 💘",
-  "I choose you, always 💍"
+  "I choose you, always 💍",
+  "You are my forever ❤️",
+  "Every beat is for you 💓",
+  "You + Me = Always ♾️",
+  "My safe place 🫶",
+  "I love you more each day 🌹"
 ];
 
 function createFloater(direction="up"){
@@ -555,58 +551,51 @@ function createFloater(direction="up"){
   el.className = "floater";
   el.textContent = loveLines[Math.floor(Math.random()*loveLines.length)];
   el.style.left = Math.random()*100 + "vw";
-  el.style.fontSize = (Math.random()*1.1 + 1.2) + "rem";
-  el.style.opacity = (Math.random()*0.22 + 0.10).toFixed(2);
-  el.style.top = (direction==="up") ? "auto" : "0";
+  el.style.fontSize = (Math.random()*0.55 + 1.05) + "rem"; // 1.05–1.6rem
+  el.style.opacity = (Math.random()*0.15 + 0.78).toFixed(2); // 0.78–0.93
+  el.style.top = (direction==="down") ? "0" : "auto";
   el.style.bottom = (direction==="up") ? "0" : "auto";
   el.style.animation = (direction==="up")
-    ? `driftUp ${Math.random()*8 + 10}s linear forwards`
-    : `driftDown ${Math.random()*8 + 10}s linear forwards`;
-
+    ? `driftUp ${Math.random()*7 + 10}s linear forwards`
+    : `driftDown ${Math.random()*7 + 10}s linear forwards`;
   document.body.appendChild(el);
   setTimeout(()=>el.remove(), 20000);
 }
-setInterval(()=>createFloater("up"), 2600);
-setInterval(()=>createFloater("down"), 4200);
+setInterval(()=>createFloater("up"), 2200);
+setInterval(()=>createFloater("down"), 3200);
 
-/* ---------- Theme transitions (color changes as you scroll) ---------- */
+/* Theme change on scroll (kept) */
 const themes = [
-  ["#ff9a9e","#fecdd3"],
-  ["#ff6fb1","#ffd1dc"],
-  ["#ff1493","#ff8fab"],
-  ["#c9184a","#ff758f"],
-  ["#8b0000","#ff4d6d"],
-  ["#ff4d6d","#ffe5ec"]
+  ["#880e4f","#f06292"],
+  ["#c2185b","#f06292"],
+  ["#ad1457","#ff4081"],
+  ["#d81b60","#f50057"],
+  ["#9c0f4e","#e91e63"]
 ];
-
 function setThemeByIndex(i){
   const t = themes[i % themes.length];
   document.documentElement.style.setProperty("--g1", t[0]);
   document.documentElement.style.setProperty("--g2", t[1]);
   document.body.style.background = `linear-gradient(135deg, ${t[0]}, ${t[1]})`;
 }
-
 const sections = Array.from(document.querySelectorAll(".section"));
-const observer = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
     if(e.isIntersecting){
       const idx = sections.indexOf(e.target);
       setThemeByIndex(idx);
     }
   });
 },{threshold:0.45});
+sections.forEach(s => observer.observe(s));
 
-sections.forEach(s=>observer.observe(s));
-
-/* ---------- Reveal on scroll ---------- */
-const revObserver = new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting) e.target.classList.add("on");
-  });
+/* Reveal on scroll */
+const revObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add("on"); });
 },{threshold:0.18});
-document.querySelectorAll(".reveal").forEach(el=>revObserver.observe(el));
+document.querySelectorAll(".reveal").forEach(el => revObserver.observe(el));
 
-/* ---------- Media players: auto slideshow 3–4 sec, mix photos/videos ---------- */
+/* Media slideshows (UPDATED: videos run complete, images use timer) */
 function initPlayer(container){
   const slides = Array.from(container.querySelectorAll(".slide"));
   const dotsWrap = container.querySelector(".dots");
@@ -619,74 +608,137 @@ function initPlayer(container){
   });
 
   let idx = 0;
+  let timer = null;
 
-  function stopAllVideos(){
-    slides.forEach(s=>{
-      const v = s.querySelector("video");
-      if(v){
-        v.pause();
-        try{ v.currentTime = 0; }catch(_){}
-      }
-    });
-  }
-
-  function activate(next){
+  function setActive(next){
     slides[idx].classList.remove("active");
     dots[idx].classList.remove("active");
+
+    const prevV = slides[idx].querySelector("video");
+    if(prevV){
+      prevV.pause();
+      try{ prevV.currentTime = 0; }catch(_){}
+      prevV.onended = null;
+    }
 
     idx = next;
 
     slides[idx].classList.add("active");
     dots[idx].classList.add("active");
 
-    stopAllVideos();
     const v = slides[idx].querySelector("video");
     if(v){
+      clearTimeout(timer);
       v.play().catch(()=>{});
+      v.onended = () => setActive((idx+1) % slides.length);
+    }else{
+      clearTimeout(timer);
+      timer = setTimeout(()=>setActive((idx+1) % slides.length), 3800);
     }
   }
 
-  function nextSlide(){
-    activate((idx+1) % slides.length);
+  // Start
+  const firstV = slides[0].querySelector("video");
+  if(firstV){
+    firstV.play().catch(()=>{});
+    firstV.onended = () => setActive(1 % slides.length);
+  }else{
+    timer = setTimeout(()=>setActive(1 % slides.length), 3800);
   }
 
-  // 3–4 sec per slide (randomized to feel "live")
-  let timer = setInterval(nextSlide, 3800);
-
-  // If a slide is video, keep it visible longer (optional)
-  function adaptiveTick(){
-    clearInterval(timer);
-    const s = slides[idx];
-    const v = s.querySelector("video");
-    const delay = v ? 5200 : 3800;
-    timer = setInterval(nextSlide, delay);
-  }
-
-  // update delay each time
-  const originalActivate = activate;
-  activate = (n) => { originalActivate(n); adaptiveTick(); };
-
-  // Start video on first slide if video
-  const v0 = slides[0].querySelector("video");
-  if(v0){ v0.play().catch(()=>{}); adaptiveTick(); }
-
-  // Pause when offscreen
+  // Pause offscreen
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{
       if(!e.isIntersecting){
-        clearInterval(timer);
-        stopAllVideos();
-      }else{
-        adaptiveTick();
+        clearTimeout(timer);
         const v = slides[idx].querySelector("video");
-        if(v){ v.play().catch(()=>{}); }
+        if(v){ v.pause(); }
+      }else{
+        const v = slides[idx].querySelector("video");
+        if(v){
+          v.play().catch(()=>{});
+        }else{
+          clearTimeout(timer);
+          timer = setTimeout(()=>setActive((idx+1) % slides.length), 3800);
+        }
       }
     });
   },{threshold:0.25});
   io.observe(container);
 }
-
 document.querySelectorAll(".media").forEach(initPlayer);
+
+/* ===== Proposal Overlay + cute messages + heart confetti ===== */
+const proposal = document.getElementById("proposal");
+const yesBtn = document.getElementById("yesBtn");
+const closeBtn = document.getElementById("closeBtn");
+const miniMsg = document.getElementById("miniMsg");
+
+const proposalLines = [
+  "I choose you. Always. 💖",
+  "You make my world soft and beautiful. 🌷",
+  "My favorite forever starts with you. ♾️",
+  "Even on hard days — I want YOU. 🫶",
+  "You’re my best decision. 💘"
+];
+
+let msgTimer = null;
+let confettiTimer = null;
+
+function spawnConfetti(){
+  const el = document.createElement("div");
+  el.className = "confetti-heart";
+  el.textContent = heartIcons[Math.floor(Math.random()*heartIcons.length)];
+  el.style.left = Math.random()*100 + "vw";
+  el.style.fontSize = (Math.random()*1.8 + 1.2) + "rem";
+  el.style.animation = `confetti ${Math.random()*2.6 + 3.6}s linear forwards`;
+  el.style.opacity = "0.95";
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(), 7000);
+}
+
+function startProposalEffects(){
+  let i = 0;
+  miniMsg.textContent = proposalLines[0];
+
+  msgTimer = setInterval(()=>{
+    i = (i+1) % proposalLines.length;
+    miniMsg.textContent = proposalLines[i];
+  }, 1600);
+
+  confettiTimer = setInterval(spawnConfetti, 120);
+  setTimeout(()=>{ clearInterval(confettiTimer); confettiTimer = null; }, 4200);
+}
+
+function stopProposalEffects(){
+  clearInterval(msgTimer);
+  msgTimer = null;
+}
+
+function proposalMode(){
+  proposal.classList.add("on");
+  startProposalEffects();
+}
+
+yesBtn.onclick = () => {
+  miniMsg.textContent = "Yayyy! 😍💍❤️ I love you sooo much!";
+  clearInterval(confettiTimer);
+  confettiTimer = setInterval(spawnConfetti, 90);
+  setTimeout(()=>{ clearInterval(confettiTimer); confettiTimer = null; }, 5200);
+};
+
+closeBtn.onclick = () => {
+  proposal.classList.remove("on");
+  stopProposalEffects();
+};
+
+/* Close overlay if tap outside modal */
+proposal.addEventListener("click", (e)=>{
+  if(e.target.classList.contains("backdrop")){
+    proposal.classList.remove("on");
+    stopProposalEffects();
+  }
+});
 </script>
 
 </body>
