@@ -129,8 +129,58 @@ main{position:relative; z-index:2}
   align-items:center;
 }
 .section:nth-child(even) .wrap{grid-template-columns: .95fr 1.05fr}
-@media (max-width: 900px){
+/* @media (max-width: 900px){
   .wrap{grid-template-columns:1fr; gap:22px}
+} */
+@media (max-width: 900px){
+
+  .wrap{
+    grid-template-columns:1fr;
+    gap:28px;
+  }
+
+  /* Make all sections consistent vertically */
+  .section{
+    padding:90px 20px 60px;
+  }
+
+  /* Card spacing improved */
+  .card{
+    padding:28px 22px;
+    border-radius:22px;
+  }
+
+  /* Better readable text */
+  .sub{
+    font-size:1.05rem;
+    line-height:1.85;
+  }
+
+  /* Media improved height */
+  .media{
+    min-height:380px;
+    border-radius:22px;
+  }
+
+  /* Add spacing between stacked media + card */
+  .section .wrap > *{
+    width:100%;
+  }
+
+  /* Center headings on mobile */
+  h1,h2{
+    text-align:center;
+  }
+
+  .big-heart{
+    text-align:center;
+  }
+
+  .timer{
+    width:100%;
+    text-align:center;
+  }
+
 }
 
 /* --- Glass card --- */
