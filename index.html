@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Forever Love ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --g1:#ff9a9e;
+  --g2:#fecdd3;
+  --p1:#ff69b4;
+  --p2:#ff1493;
+  --glass:rgba(255,255,255,0.14);
+  --stroke:rgba(255,255,255,0.18);
+  --shadow:rgba(0,0,0,0.35);
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:'Poppins',sans-serif;
+  color:#fff;
+  overflow-x:hidden;
+  background:linear-gradient(135deg,var(--g1),var(--g2));
+  transition:background 1.6s ease;
+}
+
+/* --- Ambient background layers --- */
+.bg-overlay{
+  position:fixed; inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(800px 500px at 10% 10%, rgba(255,20,147,0.28), transparent 60%),
+    radial-gradient(900px 600px at 90% 20%, rgba(255,105,180,0.22), transparent 60%),
+    radial-gradient(900px 700px at 40% 90%, rgba(255,255,255,0.10), transparent 70%);
+  mix-blend-mode:screen;
+  z-index:-2;
+}
+.bg-noise{
+  position:fixed; inset:-20%;
+  pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.20'/%3E%3C/svg%3E");
+  opacity:.14;
+  z-index:-1;
+  transform:rotate(8deg);
+}
+
+/* --- Floating hearts (refined) --- */
+@keyframes fall{
+  0%{transform:translateY(-120vh) rotate(0deg); opacity:0}
+  10%{opacity:1}
+  100%{transform:translateY(130vh) rotate(1080deg); opacity:0}
+}
+.heart{
+  position:fixed;
+  top:-10vh;
+  user-select:none;
+  pointer-events:none;
+  filter:drop-shadow(0 12px 18px rgba(0,0,0,.25));
+  z-index:0;
+}
+
+/* --- Floating appreciation texts (up/down) --- */
+@keyframes driftUp{
+  0%{transform:translateY(15vh); opacity:0}
+  15%{opacity:.75}
+  100%{transform:translateY(-120vh); opacity:0}
+}
+@keyframes driftDown{
+  0%{transform:translateY(-30vh); opacity:0}
+  15%{opacity:.65}
+  100%{transform:translateY(130vh); opacity:0}
+}
+.floater{
+  position:fixed;
+  left:0;
+  font-family:'Playfair Display',serif;
+  letter-spacing:.5px;
+  font-weight:700;
+  color:rgba(255,255,255,0.18);
+  text-shadow:0 0 35px rgba(255,20,147,0.18);
+  user-select:none;
+  pointer-events:none;
+  white-space:nowrap;
+  z-index:0;
+}
+
+/* --- Top controls (minimal) --- */
+.topbar{
+  position:fixed;
+  top:18px; left:50%;
+  transform:translateX(-50%);
+  z-index:50;
+  display:flex;
+  gap:10px;
+  padding:10px 14px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.10);
+  border:1px solid rgba(255,255,255,0.16);
+  backdrop-filter:blur(16px);
+  box-shadow:0 10px 30px rgba(0,0,0,0.18);
+}
+.topbar button{
+  border:0;
+  padding:10px 16px;
+  border-radius:999px;
+  cursor:pointer;
+  color:#fff;
+  background:linear-gradient(135deg,var(--p1),var(--p2));
+  box-shadow:0 10px 25px rgba(255,20,147,0.24);
+  transition:transform .25s ease, filter .25s ease;
+}
+.topbar button:hover{transform:translateY(-2px) scale(1.04); filter:saturate(1.1)}
+.topbar .pill{
+  display:flex; align-items:center; gap:10px;
+  padding:10px 14px;
+  border-radius:999px;
+  background:rgba(0,0,0,0.12);
+  border:1px solid rgba(255,255,255,0.14);
+}
+
+/* --- Music button (same idea as yours) --- */
+.music-btn{
+  position:fixed;
+  bottom:22px; right:22px;
+  z-index:60;
+  width:56px; height:56px;
+  border:0;
+  border-radius:50%;
+  cursor:pointer;
+  background:linear-gradient(135deg,#ff69b4,#ff1493);
+  color:#fff;
+  font-size:1.5rem;
+  box-shadow:0 16px 35px rgba(0,0,0,0.25);
+  transition:transform .25s ease;
+}
+.music-btn:hover{transform:translateY(-2px) scale(1.05)}
+
+/* --- One-page vertical scrolling sections --- */
+main{position:relative; z-index:2}
+.section{
+  min-height:100vh;
+  padding:110px 22px 80px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.wrap{
+  width:min(1120px, 94vw);
+  display:grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap:38px;
+  align-items:center;
+}
+.section:nth-child(even) .wrap{
+  grid-template-columns: .95fr 1.05fr;
+}
+@media (max-width: 900px){
+  .wrap{grid-template-columns:1fr; gap:22px}
+  .section:nth-child(even) .wrap{grid-template-columns:1fr}
+  .topbar{flex-wrap:wrap; justify-content:center}
+}
+
+/* --- Glass card --- */
+.card{
+  background:var(--glass);
+  border:1px solid var(--stroke);
+  backdrop-filter:blur(18px);
+  border-radius:26px;
+  padding:34px;
+  box-shadow:0 20px 60px rgba(0,0,0,0.25);
+}
+h1,h2{
+  font-family:'Playfair Display',serif;
+  text-shadow:0 0 34px rgba(255,20,147,0.28);
+}
+h1{font-size:clamp(2.8rem, 6vw, 5.2rem); line-height:1.05}
+h2{font-size:clamp(2rem, 4.2vw, 3.3rem); margin-bottom:10px}
+.sub{
+  opacity:.92;
+  font-size:1.08rem;
+  line-height:1.9;
+}
+.big-heart{
+  font-size:clamp(4.2rem, 9vw, 8.6rem);
+  filter:drop-shadow(0 0 28px rgba(255,20,147,0.35));
+  animation:beat 2s infinite;
+  margin:10px 0 16px;
+}
+@keyframes beat{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.12)}
+}
+
+/* --- Media frames (images/videos) --- */
+.media{
+  position:relative;
+  border-radius:28px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,0.18);
+  box-shadow:0 22px 60px rgba(0,0,0,0.35);
+  background:rgba(0,0,0,0.18);
+  min-height:520px;
+}
+@media (max-width: 900px){
+  .media{min-height:420px}
+}
+.media::after{
+  content:"";
+  position:absolute; inset:0;
+  background:
+    radial-gradient(800px 500px at 30% 10%, rgba(255,255,255,0.12), transparent 60%),
+    linear-gradient(180deg, rgba(0,0,0,0.10), rgba(0,0,0,0.35));
+  pointer-events:none;
+}
+
+/* Slides */
+.slide{
+  position:absolute; inset:0;
+  opacity:0;
+  transform:scale(1.03);
+  transition:opacity 1.2s cubic-bezier(.22,1,.36,1), transform 1.2s cubic-bezier(.22,1,.36,1);
+}
+.slide.active{
+  opacity:1;
+  transform:scale(1);
+}
+.slide img, .slide video{
+  width:100%; height:100%;
+  object-fit:cover;
+  display:block;
+}
+.slide video{background:#000}
+
+/* Badge */
+.badge{
+  position:absolute;
+  top:16px; left:16px;
+  z-index:5;
+  padding:10px 14px;
+  border-radius:999px;
+  font-weight:600;
+  background:rgba(0,0,0,0.20);
+  border:1px solid rgba(255,255,255,0.16);
+  backdrop-filter:blur(10px);
+}
+
+/* Progress dots */
+.dots{
+  position:absolute;
+  bottom:16px; left:50%;
+  transform:translateX(-50%);
+  display:flex; gap:8px;
+  z-index:6;
+}
+.dot{
+  width:8px; height:8px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.35);
+  border:1px solid rgba(255,255,255,0.15);
+  transition:transform .25s ease, background .25s ease;
+}
+.dot.active{background:#fff; transform:scale(1.35)}
+
+/* Love timer (kept) */
+.timer{
+  margin-top:18px;
+  display:inline-block;
+  padding:14px 18px;
+  border-radius:16px;
+  background:rgba(0,0,0,0.16);
+  border:1px solid rgba(255,255,255,0.14);
+  backdrop-filter:blur(12px);
+  font-weight:600;
+}
+
+/* Final gift section (like your previous) */
+.gift-btn{
+  margin-top:22px;
+  padding:15px 44px;
+  border:0;
+  border-radius:999px;
+  background:linear-gradient(135deg,#ff69b4,#ff1493);
+  color:#fff;
+  font-size:1.15rem;
+  cursor:pointer;
+  box-shadow:0 18px 42px rgba(255,20,147,0.28);
+  transition:transform .25s ease;
+}
+.gift-btn:hover{transform:translateY(-2px) scale(1.04)}
+
+footer{
+  padding:30px 18px 60px;
+  text-align:center;
+  opacity:.85;
+  font-size:.95rem;
+}
+
+/* Smooth reveal on scroll */
+.reveal{
+  opacity:0;
+  transform:translateY(26px);
+  transition:opacity 1s cubic-bezier(.22,1,.36,1), transform 1s cubic-bezier(.22,1,.36,1);
+}
+.reveal.on{
+  opacity:1;
+  transform:translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg-overlay"></div>
+<div class="bg-noise"></div>
+
+<!-- Music (same filename as your code) -->
+<audio id="bgMusic" loop>
+  <source src="romantic.mp3" type="audio/mp3">
+</audio>
+<button class="music-btn" id="musicBtn">🎵</button>
+
+<!-- Topbar controls -->
+<div class="topbar">
+  <button onclick="scrollToId('top')">Home</button>
+  <button onclick="scrollToId('moments')">Moments</button>
+  <button onclick="scrollToId('promises')">Promises</button>
+  <button onclick="scrollToId('future')">Future</button>
+  <button onclick="scrollToId('gift')">Surprise</button>
+  <div class="pill">
+    <span style="opacity:.9">Together:</span>
+    <span id="loveTimer" style="font-weight:700"></span>
+  </div>
+</div>
+
+<main id="top">
+
+  <!-- 1 -->
+  <section class="section">
+    <div class="wrap reveal">
+      <div class="card">
+        <h1>My Forever Love</h1>
+        <div class="big-heart">❤️</div>
+        <div class="sub">
+          Happy Valentine's Day my love 💕<br><br>
+          You are the reason my world feels complete.<br>
+          Every moment with you is pure magic.<br><br>
+          I love you endlessly.<br><br>
+          – Yours Forever
+        </div>
+      </div>
+
+      <div class="media" data-player="p1">
+        <div class="badge">Chapter 1 • Our Smile</div>
+        <!-- 12–16 photos using your same names pattern -->
+        <div class="slide active"><img src="images/first-meeting.jpg.jpg" alt=""></div>
+        <div class="slide"><img src="images/holding-hands.jpg" alt=""></div>
+        <div class="slide"><img src="images/rainy-day-cuddle.jpg" alt=""></div>
+        <div class="slide"><img src="images/us-together.jpg.jpeg" alt=""></div>
+        <div class="slide"><img src="images/photo5.jpeg" alt=""></div>
+        <div class="slide"><img src="images/photo3.jpg" alt=""></div>
+        <div class="dots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="section" id="moments">
+    <div class="wrap reveal">
+      <div class="media" data-player="p2">
+        <div class="badge">Chapter 2 • Memories</div>
+        <div class="slide active"><img src="photo7.jpg" alt=""></div>
+        <div class="slide"><img src="photo8.jpg" alt=""></div>
+        <div class="slide"><img src="photo9.jpg" alt=""></div>
+        <div class="slide"><img src="photo10.jpg" alt=""></div>
+        <div class="slide"><img src="photo11.jpg" alt=""></div>
+        <div class="slide"><img src="photo12.jpg" alt=""></div>
+        <div class="dots"></div>
+      </div>
+
+      <div class="card">
+        <h2>Our Memories 💞</h2>
+        <div class="sub">
+          From our first shy hello…<br>
+          To late night laughs…<br>
+          To silly fights and deeper love…<br><br>
+          Every memory with you is priceless — and I keep them like treasures.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="section" id="promises">
+    <div class="wrap reveal">
+      <div class="card">
+        <h2>My Promises 💍</h2>
+        <div class="sub">
+          I promise to protect you.<br>
+          I promise to support your dreams.<br>
+          I promise to choose you every single day.<br><br>
+          Forever means forever.
+        </div>
+      </div>
+
+      <div class="media" data-player="p3">
+        <div class="badge">Chapter 3 • Little Moments</div>
+        <div class="slide active"><img src="photo13.jpg" alt=""></div>
+        <div class="slide"><img src="photo14.jpg" alt=""></div>
+        <div class="slide"><img src="photo15.jpg" alt=""></div>
+        <div class="slide"><img src="photo16.jpg" alt=""></div>
+        <div class="dots"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="section" id="future">
+    <div class="wrap reveal">
+      <div class="media" data-player="v1">
+        <div class="badge">Chapter 4 • Our Story in Motion</div>
+        <!-- 5–6 videos; keep provided name video.mp4 + add video2..video6 -->
+        <div class="slide active"><video src="images/video1.mp4" muted playsinline preload="metadata"></video></div>
+        <div class="slide"><video src="images/video2.mp4" muted playsinline preload="metadata"></video></div>
+        <div class="slide"><video src="video3.mp4" muted playsinline preload="metadata"></video></div>
+        <div class="slide"><video src="video4.mp4" muted playsinline preload="metadata"></video></div>
+        <div class="slide"><video src="video5.mp4" muted playsinline preload="metadata"></video></div>
+        <div class="slide"><video src="video6.mp4" muted playsinline preload="metadata"></video></div>
+        <div class="dots"></div>
+      </div>
+
+      <div class="card">
+        <h2>Our Future 🌟</h2>
+        <div class="sub">
+          Building a home together…<br>
+          Traveling the world…<br>
+          Growing old while holding hands…<br><br>
+          The best is yet to come — and I want it with you.
+        </div>
+        <div class="timer">Together for <span id="loveTimer2"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 Gift (LIKE YOUR PREVIOUS: same text + button + alert proposal) -->
+  <section class="section" id="gift">
+    <div class="wrap reveal">
+      <div class="card">
+        <h2>Your Surprise 💌</h2>
+        <div class="sub">
+          Close your eyes…<br>
+          Take a deep breath…<br><br>
+          Click below ❤️
+        </div>
+        <button class="gift-btn" onclick="proposalMode()">Open Your Gift 💕</button>
+      </div>
+
+      <div class="media" data-player="p4">
+        <div class="badge">Final • You & Me</div>
+        <div class="slide active"><img src="photo1.jpg" alt=""></div>
+        <div class="slide"><img src="photo2.jpg" alt=""></div>
+        <div class="slide"><img src="photo3.jpg" alt=""></div>
+        <div class="slide"><img src="photo4.jpg" alt=""></div>
+        <div class="slide"><video src="video.mp4" muted playsinline preload="metadata"></video></div>
+        <div class="dots"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Made with ❤️ — just for you.
+  </footer>
+</main>
+
+<script>
+/* ---------- Scroll to section (one-page vertical) ---------- */
+function scrollToId(id){
+  const el = (id === 'top') ? document.getElementById('top') : document.getElementById(id);
+  if(!el) return;
+  el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* ---------- Music (same as your idea) ---------- */
+const music = document.getElementById("bgMusic");
+const btn = document.getElementById("musicBtn");
+btn.onclick = () => {
+  if (music.paused) { music.play(); btn.innerHTML = "🎵"; }
+  else { music.pause(); btn.innerHTML = "🔇"; }
+};
+
+/* ---------- Love timer (same start date, improved output) ---------- */
+const startDate = new Date("2022-02-14T00:00:00");
+function fmt(n){return String(n).padStart(2,'0')}
+function updateTimer(){
+  const now = new Date();
+  let diff = now - startDate;
+
+  const days = Math.floor(diff / (1000*60*60*24));
+  diff -= days * (1000*60*60*24);
+  const hrs = Math.floor(diff / (1000*60*60));
+  diff -= hrs * (1000*60*60);
+  const mins = Math.floor(diff / (1000*60));
+  diff -= mins * (1000*60);
+  const secs = Math.floor(diff / 1000);
+
+  const text = `${days} days • ${fmt(hrs)}:${fmt(mins)}:${fmt(secs)} 💕`;
+  const t1 = document.getElementById("loveTimer");
+  const t2 = document.getElementById("loveTimer2");
+  if(t1) t1.textContent = text;
+  if(t2) t2.textContent = text;
+}
+setInterval(updateTimer, 1000);
+updateTimer();
+
+/* ---------- Proposal mode (kept like your previous) ---------- */
+function proposalMode(){
+  document.body.style.background = "linear-gradient(135deg,#ff1493,#8b0000)";
+  alert("Will you stay with me forever? 💍❤️");
+}
+
+/* ---------- Falling Hearts (cleaner) ---------- */
+const heartIcons = ["❤️","💖","💕","💗","💘"];
+function createHeart(){
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.textContent = heartIcons[Math.floor(Math.random()*heartIcons.length)];
+  heart.style.left = Math.random()*100 + "vw";
+  heart.style.fontSize = (Math.random()*1.8 + 1.2) + "rem";
+  heart.style.animation = `fall ${Math.random()*7 + 10}s linear forwards`;
+  heart.style.opacity = "0.9";
+  document.body.appendChild(heart);
+  setTimeout(()=>heart.remove(), 18000);
+}
+setInterval(createHeart, 900);
+
+/* ---------- Floating appreciation background texts (up & down) ---------- */
+const loveLines = [
+  "You are my home ❤️",
+  "My heart chooses you 💖",
+  "I’m proud of you 🌸",
+  "Thank you for being you ✨",
+  "I love your smile 😊",
+  "You make life beautiful 🌷",
+  "Forever feels easy with you 💞",
+  "You are my peace 🌙",
+  "My favorite person 💘",
+  "I choose you, always 💍"
+];
+
+function createFloater(direction="up"){
+  const el = document.createElement("div");
+  el.className = "floater";
+  el.textContent = loveLines[Math.floor(Math.random()*loveLines.length)];
+  el.style.left = Math.random()*100 + "vw";
+  el.style.fontSize = (Math.random()*1.1 + 1.2) + "rem";
+  el.style.opacity = (Math.random()*0.22 + 0.10).toFixed(2);
+  el.style.top = (direction==="up") ? "auto" : "0";
+  el.style.bottom = (direction==="up") ? "0" : "auto";
+  el.style.animation = (direction==="up")
+    ? `driftUp ${Math.random()*8 + 10}s linear forwards`
+    : `driftDown ${Math.random()*8 + 10}s linear forwards`;
+
+  document.body.appendChild(el);
+  setTimeout(()=>el.remove(), 20000);
+}
+setInterval(()=>createFloater("up"), 2600);
+setInterval(()=>createFloater("down"), 4200);
+
+/* ---------- Theme transitions (color changes as you scroll) ---------- */
+const themes = [
+  ["#ff9a9e","#fecdd3"],
+  ["#ff6fb1","#ffd1dc"],
+  ["#ff1493","#ff8fab"],
+  ["#c9184a","#ff758f"],
+  ["#8b0000","#ff4d6d"],
+  ["#ff4d6d","#ffe5ec"]
+];
+
+function setThemeByIndex(i){
+  const t = themes[i % themes.length];
+  document.documentElement.style.setProperty("--g1", t[0]);
+  document.documentElement.style.setProperty("--g2", t[1]);
+  document.body.style.background = `linear-gradient(135deg, ${t[0]}, ${t[1]})`;
+}
+
+const sections = Array.from(document.querySelectorAll(".section"));
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const idx = sections.indexOf(e.target);
+      setThemeByIndex(idx);
+    }
+  });
+},{threshold:0.45});
+
+sections.forEach(s=>observer.observe(s));
+
+/* ---------- Reveal on scroll ---------- */
+const revObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting) e.target.classList.add("on");
+  });
+},{threshold:0.18});
+document.querySelectorAll(".reveal").forEach(el=>revObserver.observe(el));
+
+/* ---------- Media players: auto slideshow 3–4 sec, mix photos/videos ---------- */
+function initPlayer(container){
+  const slides = Array.from(container.querySelectorAll(".slide"));
+  const dotsWrap = container.querySelector(".dots");
+  dotsWrap.innerHTML = "";
+  const dots = slides.map((_,i)=>{
+    const d = document.createElement("div");
+    d.className = "dot" + (i===0 ? " active": "");
+    dotsWrap.appendChild(d);
+    return d;
+  });
+
+  let idx = 0;
+
+  function stopAllVideos(){
+    slides.forEach(s=>{
+      const v = s.querySelector("video");
+      if(v){
+        v.pause();
+        try{ v.currentTime = 0; }catch(_){}
+      }
+    });
+  }
+
+  function activate(next){
+    slides[idx].classList.remove("active");
+    dots[idx].classList.remove("active");
+
+    idx = next;
+
+    slides[idx].classList.add("active");
+    dots[idx].classList.add("active");
+
+    stopAllVideos();
+    const v = slides[idx].querySelector("video");
+    if(v){
+      v.play().catch(()=>{});
+    }
+  }
+
+  function nextSlide(){
+    activate((idx+1) % slides.length);
+  }
+
+  // 3–4 sec per slide (randomized to feel "live")
+  let timer = setInterval(nextSlide, 3800);
+
+  // If a slide is video, keep it visible longer (optional)
+  function adaptiveTick(){
+    clearInterval(timer);
+    const s = slides[idx];
+    const v = s.querySelector("video");
+    const delay = v ? 5200 : 3800;
+    timer = setInterval(nextSlide, delay);
+  }
+
+  // update delay each time
+  const originalActivate = activate;
+  activate = (n) => { originalActivate(n); adaptiveTick(); };
+
+  // Start video on first slide if video
+  const v0 = slides[0].querySelector("video");
+  if(v0){ v0.play().catch(()=>{}); adaptiveTick(); }
+
+  // Pause when offscreen
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting){
+        clearInterval(timer);
+        stopAllVideos();
+      }else{
+        adaptiveTick();
+        const v = slides[idx].querySelector("video");
+        if(v){ v.play().catch(()=>{}); }
+      }
+    });
+  },{threshold:0.25});
+  io.observe(container);
+}
+
+document.querySelectorAll(".media").forEach(initPlayer);
+</script>
+
+</body>
+</html>
